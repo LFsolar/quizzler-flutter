@@ -36,6 +36,12 @@ class _QuizPageState extends State<QuizPage> {
 
   List<Icon> scoreKeeper = [];
 
+  void addToScore(Icon icon) {
+    setState(() {
+      scoreKeeper.add(icon);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -62,11 +68,8 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(
             padding: EdgeInsets.all(15.0),
             child: TextButton(
-              style: TextButton.styleFrom(
-                primary: Colors.green,
-                textStyle: const TextStyle(
-                  color: Colors.white,
-                ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.green),
               ),
               child: Text(
                 'True',
@@ -77,6 +80,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
+                addToScore(right);
               },
             ),
           ),
@@ -85,11 +89,8 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(
             padding: EdgeInsets.all(15.0),
             child: TextButton(
-              style: TextButton.styleFrom(
-                primary: Colors.red,
-                textStyle: const TextStyle(
-                  color: Colors.white,
-                ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.red),
               ),
               child: Text(
                 'False',
@@ -100,11 +101,14 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
+                addToScore(wrong);
               },
             ),
           ),
         ),
-        //TODO: Add a Row here as your score keeper
+        Row(
+          children: scoreKeeper,
+        ),
       ],
     );
   }
