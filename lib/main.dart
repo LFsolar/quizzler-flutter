@@ -47,6 +47,16 @@ class _QuizPageState extends State<QuizPage> {
     });
   }
 
+  void checkAnswer(bool userPickedAnswer) {
+    bool correctAnswer = quizBrain.getCorrectAnswer();
+
+    if (userPickedAnswer == correctAnswer) {
+      addToScore(right);
+    } else {
+      addToScore(wrong);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -85,11 +95,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                if (quizBrain.getQuestionAnswer()) {
-                  addToScore(right);
-                } else {
-                  addToScore(wrong);
-                }
+                checkAnswer(true);
               },
             ),
           ),
@@ -110,11 +116,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
-                if (!quizBrain.getQuestionAnswer()) {
-                  addToScore(right);
-                } else {
-                  addToScore(wrong);
-                }
+                checkAnswer(false);
               },
             ),
           ),
